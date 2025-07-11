@@ -1,0 +1,82 @@
+[17:39, 11/07/2025] Laís: <!DOCTYPE html>
+<html>
+<head>
+  <title>Jogo das Formas Geométricas</title>
+</head>
+<body>
+  <h1>Escolha uma forma geométrica</h1>
+
+  <label for="forma">Forma:</label>
+  <select id="forma">
+    <option value="quadrado">Quadrado</option>
+    <option value="retangulo">Retângulo</option>
+    <option value="circulo">Círculo</option>
+  </select>
+
+  <div id="inputs"></div>
+
+  <button onclick="calcular()">Calcular Área</button>
+
+  <h2 id="resultado"></h2>
+  <h3 id="mensagemFinal"></h3>
+
+  <script>
+    const formaSelect = document.getElementById("forma");
+    const inputsDiv = document.getElementById("inputs");
+    const resultado = document.getElementById("resultado");
+    const mensagemFinal = document.getElementById("mensagemFinal");
+
+    formaSelect.addEventListener("change", atualizarInputs);
+
+    function atualizarInputs() {
+      const forma = formaSelect.value;
+      let html = "";
+
+      if (forma === "quadrado") {
+        html = '<label>Lado: <input type="number" id="lado"></label>';
+      } else if (forma === "retangulo") {
+        html = `
+          <label>Base: <input type="number" id="base"></label><br>
+          <label>Altura: <input type="number" id="altura"></label>
+        `;
+      } else if (forma === "circulo") {
+        html = '<label>Raio: <input type="number" id="raio"></label>';
+      }
+
+      inputsDiv.innerHTML = html;
+    }
+
+    function calcular() {
+      const forma = formaSelect.value;
+      let area = 0;
+
+      if (forma === "quadrado") {
+        const lado = parseFloat(document.getElementById("lado").value);
+        area = lado * lado;
+      } else if (forma === "retangulo") {
+        const base = parseFloat(document.getElementById("base").value);
+        const altura = parseFloat(document.getElementById("altura").value);
+        area = base * altura;
+      } else if (forma === "circulo") {
+        const raio = parseFloat(document.getElementById("raio").value);
+        area = Math.PI * raio * raio;
+      }
+
+      const areaArredondada = area.toFixed(2);
+      resultado.textContent = "Área: " + areaArredondada;
+
+      const areaInteira = Math.floor(area);
+      if (areaInteira % 2 === 0) {
+        mensagemFinal.textContent = " Parabéns! A área é par.";
+      } else {
+        mensagemFinal.textContent = " Você perdeu! A área é ímpar.";
+      }
+    }
+
+    // Mostrar inputs iniciais
+    atualizarInputs();
+  </script>
+</body>
+</html>
+
+[17:35, 11/07/2025] Laís: 
